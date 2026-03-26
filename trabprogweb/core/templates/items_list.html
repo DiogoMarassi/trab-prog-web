@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head><title>Items</title></head>
+<body>
+    <h1>Items list</h1>
+    <a href="{% url 'create_item' %}">New item</a>
+    <ul>
+        {% for item in items %}
+            <li>
+                {{ item.name }}
+            </li>
+        {% empty %}
+            <li>No items.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
