@@ -1,0 +1,60 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Hospitalar - Acesso Base</title>
+    <!-- Adição do Inter Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Vincula a folha de estilo pura do login -->
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="login-wrapper">
+        <!-- Esferas animadas apenas com CSS -->
+        <div class="login-decoration">
+            <div class="glass-orb orb-1"></div>
+            <div class="glass-orb orb-2"></div>
+        </div>
+        
+        <div class="login-glass-panel">
+            <div class="login-header">
+                <h2>Health<span>Track</span></h2>
+                <p>Monitoramento Inteligente de Dispositivos</p>
+            </div>
+
+            <!-- Django Authentication Form -->
+            <form method="post" class="login-form">
+                {% csrf_token %}
+                
+                {% if form.errors %}
+                <div class="alert-error">
+                    Usuário ou senha incorretos.
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="id_username">Sua Credencial</label>
+                    <input type="text" name="username" id="id_username" placeholder="ex: medico_teste" required autofocus>
+                </div>
+
+                <div class="form-group">
+                    <label for="id_password">Senha de Segurança</label>
+                    <input type="password" name="password" id="id_password" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-primary">Acessar Sistema</button>
+                
+                <div style="font-size: 0.75rem; color: #94A3B8; margin-top: 10px; text-align: center;">
+                    Dica: use "admin" / "admin123" ou "medico_teste" / "teste123"
+                </div>
+            </form>
+            
+            <div class="login-footer">
+                © {% now "Y" %} - Departamento de Engenharia Clínica & UTI
+            </div>
+        </div>
+    </div>
+</body>
+</html>

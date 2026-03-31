@@ -120,3 +120,8 @@ STATICFILES_DIRS = [BASE_DIR / 'static']
 
 # Sistema Customizado de Usuário
 AUTH_USER_MODEL = 'core.CustomUser'
+
+# Autenticação Dinâmica
+LOGIN_URL = 'login'
+LOGIN_REDIRECT_URL = 'home'
+LOGOUT_REDIRECT_URL = 'login'
