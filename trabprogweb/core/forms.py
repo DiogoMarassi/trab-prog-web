@@ -1,7 +1,4 @@
 from django import forms
-from .models import Item
+from .models import Device
 
-class ItemForm(forms.ModelForm):
-    class Meta:
-        model = Item
-        fields = ['name', 'qty']
+# Formulários serão desenvolvidos aqui
