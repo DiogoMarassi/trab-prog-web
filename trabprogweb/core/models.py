@@ -1,8 +1,17 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
 
-class Item(models.Model):
-    name = models.CharField(max_length=200)
-    qty = models.IntegerField(default=0)
+class CustomUser(AbstractUser):
+    class Role(models.TextChoices):
+        MEDICO = 'MEDICO', 'Médico'
+        ENGENHEIRO = 'ENGENHEIRO', 'Engenheiro/Administrador'
+
+    role = models.CharField(
+        max_length=20,
+        choices=Role.choices,
+        default=Role.MEDICO,
+        verbose_name="Perfil de Acesso"
+    )
 
     def __str__(self):
-        return self.name
+        return f"{self.username} ({self.get_role_display()})"

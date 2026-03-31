@@ -117,3 +117,6 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [BASE_DIR / 'static']
+
+# Sistema Customizado de Usuário
+AUTH_USER_MODEL = 'core.CustomUser'
