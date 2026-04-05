@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Novo Dispositivo {% endblock %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 700px; margin: 0 auto; margin-top: 2rem;">
+    <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem; color: var(--text-main);">Registrar Novo Dispositivo</h2>
+        <p style="color: var(--text-muted);">Preencha a ficha técnica do equipamento para inclusão na base de monitoramento.</p>
+    </div>
+
+    <!-- Nosso Forms em grid herdando a arquitetura segura do ModelForm -->
+    <form method="post">
+        {% csrf_token %}
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+            {% for field in form %}
+            
+            <!-- Tratativa de Colunas Intercaladas: Atributos textuais mais longos pegam e esticam nas 2 colunas -->
+            <div class="form-group" {% if field.name == 'location' or field.name == 'status' or field.name == 'name' %}style="grid-column: 1 / -1;"{% endif %}>
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                
+                {% if field.errors %}
+                <span style="color: var(--danger); font-size: 0.8rem; display: block; margin-top: 0.5rem;">
+                    {{ field.errors.0 }}
+                </span>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="display: flex; gap: 1rem; margin-top: 2.5rem;">
+            <a href="{% url 'home' %}" class="btn-secondary" style="flex: 1;">Cancelar Registro</a>
+            <button type="submit" class="btn-primary" style="flex: 2;">Cadastrar Equipamento</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

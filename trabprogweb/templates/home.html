@@ -12,7 +12,7 @@
     
     <!-- Renderização condicional visual: O botão aparece só pra Engenheiros -->
     {% if user.role == "ENGENHEIRO" %}
-    <a href="#" class="btn-primary" style="padding: 0.75rem 1.5rem; width: auto; margin-top: 0; box-shadow: none;">+ Novo Dispositivo</a>
+    <a href="{% url 'device_create' %}" class="btn-primary" style="padding: 0.75rem 1.5rem; width: auto; margin-top: 0; box-shadow: none;">+ Novo Dispositivo</a>
     {% endif %}
 </div>
 

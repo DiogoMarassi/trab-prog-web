@@ -8,11 +8,13 @@
     --text-main: #F8FAFC;
     --text-muted: #94A3B8;
     --border: rgba(255, 255, 255, 0.1);
-    
+
     /* Configuração de Cores por Hierarquia (Perfis e Status) */
-    --role-medico: #10B981;    /* Emerald - Remete a saúde */
-    --role-engenheiro: #8B5CF6; /* Violet - Remete a tecnologia */
-    --danger: #EF4444; 
+    --role-medico: #10B981;
+    /* Emerald - Remete a saúde */
+    --role-engenheiro: #8B5CF6;
+    /* Violet - Remete a tecnologia */
+    --danger: #EF4444;
 }
 
 /* Resets Nativos e Padronizações */
@@ -31,11 +33,21 @@ body {
     flex-direction: column;
 }
 
-h1, h2, h3, h4, h5 { font-weight: 600; }
-a { text-decoration: none; color: inherit; }
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 600;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
 
 /* ============================================================
-   🟢 COMPONENTES GLOBAIS: NAVBAR (HEADER)
+   COMPONENTES GLOBAIS: NAVBAR (HEADER)
    Criada com suporte flexbox moderno e blur translúcido
    ============================================================ */
 .navbar {
@@ -85,7 +97,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ============================================================
-   🟢 COMPONENTES GLOBAIS: BADGES & CRACHÁS 
+   COMPONENTES GLOBAIS: BADGES & CRACHÁS 
    Sistema de reconhecimento visual de tipos e propriedades
    ============================================================ */
 .user-role {
@@ -98,21 +110,24 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* Cores Injetadas dependendo da classe retornada pelo Backend */
-.badge-medico { 
-    background: rgba(16, 185, 129, 0.15); 
-    color: var(--role-medico); 
-    border: 1px solid rgba(16,185,129,0.3); 
+.badge-medico {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--role-medico);
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
-.badge-engenheiro { 
-    background: rgba(139, 92, 246, 0.15); 
-    color: var(--role-engenheiro); 
-    border: 1px solid rgba(139,92,246,0.3); 
+
+.badge-engenheiro {
+    background: rgba(139, 92, 246, 0.15);
+    color: var(--role-engenheiro);
+    border: 1px solid rgba(139, 92, 246, 0.3);
 }
 
 /* ============================================================
-   🟢 COMPONENTES GLOBAIS: BOTÕES
+   COMPONENTES GLOBAIS: BOTÕES
    ============================================================ */
-.inline-form { display: inline; }
+.inline-form {
+    display: inline;
+}
 
 .btn-logout {
     background: transparent;
@@ -133,7 +148,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ============================================================
-   🟢 ARRANJOS DE CONTEÚDO PRINCIPAL (MAIN & CARDS)
+   ARRANJOS DE CONTEÚDO PRINCIPAL (MAIN & CARDS)
    ============================================================ */
 .main-container {
     flex: 1;
@@ -158,7 +173,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ============================================================
-   🟢 FOOTER FIXO
+   FOOTER FIXO
    ============================================================ */
 .footer {
     background: var(--background);
@@ -176,7 +191,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ============================================================
-   🟢 GRID DE DISPOSITIVOS E STATUS BADGES (ETAPA 7)
+   GRID DE DISPOSITIVOS E STATUS BADGES
    ============================================================ */
 .device-grid {
     display: grid;
@@ -226,7 +241,7 @@ a { text-decoration: none; color: inherit; }
 }
 
 /* ============================================================
-   🟢 RECONHECIMENTO VISUAL DOS TIPOS DE ESTATO DO APARELHO
+    RECONHECIMENTO VISUAL DOS TIPOS DE ESTATO DO APARELHO
    ============================================================ */
 .status-badge {
     padding: 0.3rem 0.6rem;
@@ -237,24 +252,104 @@ a { text-decoration: none; color: inherit; }
 
 .status-ativo {
     background: rgba(16, 185, 129, 0.15);
-    color: #10B981; /* Verde esmeralda sinaliza saude no dispositivo */
-    border: 1px solid rgba(16,185,129,0.3);
+    color: #10B981;
+    /* Verde esmeralda sinaliza saude no dispositivo */
+    border: 1px solid rgba(16, 185, 129, 0.3);
 }
 
 .status-manutencao {
     background: rgba(245, 158, 11, 0.15);
-    color: #F59E0B; /* Alaranjado sinaliza equipe tecnica alocada */
-    border: 1px solid rgba(245,158,11,0.3);
+    color: #F59E0B;
+    /* Alaranjado sinaliza equipe tecnica alocada */
+    border: 1px solid rgba(245, 158, 11, 0.3);
 }
 
 .status-inativo {
     background: rgba(239, 68, 68, 0.15);
-    color: #EF4444; /* Vermelho alerta estado critico/descarte */
-    border: 1px solid rgba(239,68,68,0.3);
+    color: #EF4444;
+    /* Vermelho alerta estado critico/descarte */
+    border: 1px solid rgba(239, 68, 68, 0.3);
 }
 
 /* Utility placeholder na listagem pros botões de Editar/Apagar */
 .device-actions {
     display: flex;
     gap: 0.5rem;
+}
+
+/* ============================================================
+   FORMULÁRIOS ESTILIZADOS GLOBALMENTE E BOTÕES GLOBAIS
+   ============================================================ */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    margin-bottom: 0.5rem;
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.875rem 1rem;
+    background: rgba(15, 23, 42, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    color: white;
+    font-size: 1rem;
+    outline: none;
+    transition: all 0.2s;
+}
+
+.form-control:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.2);
+}
+
+.form-control::placeholder {
+    color: rgba(148, 163, 184, 0.5);
+}
+
+select.form-control option {
+    background-color: var(--surface);
+    color: var(--text-main);
+}
+
+.btn-primary {
+    padding: 0.875rem 1.5rem;
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 4px 6px -1px rgba(14, 165, 233, 0.3);
+    transition: transform 0.2s;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    padding: 0.875rem 1.5rem;
+    background: transparent;
+    color: var(--text-muted);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: center;
+    display: inline-block;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.05);
+    color: white;
 }
