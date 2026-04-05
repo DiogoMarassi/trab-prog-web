@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+
+{% block title %}Painel Principal{% endblock %}
+
+{% block content %}
+<div class="glass-card" style="text-align: center; padding: 4rem 2rem;">
+    <!-- Cumprimentando o usuário logado e informando o seu tipo (role) -->
+    <h2>Bem-vindo de volta, {{ user.first_name|default:user.username|title }}!</h2>
+    
+    <p style="color: var(--text-muted); margin-top: 1rem; margin-bottom: 2rem;">
+        Nosso sistema validou seu token. No entanto, sua visão em tabela de Dispositivos ainda não foi montada!<br>
+        <strong>Você se encontra na Etapa 6</strong>, onde apenas estruturamos o esqueleto Master <i>(Header, Footer e Sessão)</i>.
+    </p>
+    
+    <div style="display: flex; justify-content: center; gap: 1rem;">
+        <span class="user-role badge-{{ user.role|lower }}">Acesso {{ user.get_role_display }} Confirmado</span>
+    </div>
+</div>
+{% endblock %}

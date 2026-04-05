@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthTrack - {% block title %}Dashboard{% endblock %}</title>
+    
+    <!-- Tipografia Inter (Nativa do CSS Premium) -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Linkagem Absoluta com o Style.css global recém projetado -->
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <!-- Espaço para Injetar CSS de outras páginas caso precisem -->
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+    <!-- Cabeçalho (Navbar Glassmorphism) que reage estaticamente ao scroll -->
+    <header class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <h1>Health<span>Track</span></h1>
+            </div>
+
+            <!-- Sistema Condicional de Renderização - Mostra menu apenas para logados -->
+            {% if user.is_authenticated %}
+            <nav class="nav-menu">
+                
+                <div class="nav-user-info">
+                    <!-- A lógica do badge utiliza lower p/ acessar a string corretamente e gerar a cor certa via CSS -->
+                    <span class="user-role badge-{{ user.role|lower }}">{{ user.get_role_display }}</span>
+                    <!-- Prioriza renderizar o First Name, se for branco vai p/ o usuário literal -->
+                    <span class="user-name">{{ user.first_name|default:user.username|title }}</span>
+                </div>
+                
+                <!-- Ação Nativa de Logout segura via formulário como a versão mais recente do Django pede -->
+                <form action="{% url 'logout' %}" method="post" class="inline-form">
+                    {% csrf_token %}
+                    <button type="submit" class="btn-logout">Desconectar</button>
+                </form>
+
+            </nav>
+            {% endif %}
+        </div>
+    </header>
+
+    <!-- Ponto Central Dinâmico da Aplicação (Onde as próximas telas herdarão) -->
+    <main class="main-container">
+        {% block content %}
+        <!-- Conteúdos do Dashboard/Forms irão aqui! -->
+        {% endblock %}
+    </main>
+
+    <!-- Rodapé Minimalista -->
+    <footer class="footer">
+        <div class="footer-container">
+            <p>&copy; {% now "Y" %} Portal Hospitalar HealthTrack. Departamento de Engenharia Clínica & UTI.</p>
+        </div>
+    </footer>
+
+</body>
+</html>

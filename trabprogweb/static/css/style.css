@@ -1,0 +1,176 @@
+/* Base Custom Properties - Paleta Dark Premium e Variáveis de Sistema */
+:root {
+    --primary: #0EA5E9;
+    --primary-dark: #0284C7;
+    --background: #0F172A;
+    --surface: #1E293B;
+    --surface-hover: #334155;
+    --text-main: #F8FAFC;
+    --text-muted: #94A3B8;
+    --border: rgba(255, 255, 255, 0.1);
+    
+    /* Configuração de Cores por Hierarquia (Perfis e Status) */
+    --role-medico: #10B981;    /* Emerald - Remete a saúde */
+    --role-engenheiro: #8B5CF6; /* Violet - Remete a tecnologia */
+    --danger: #EF4444; 
+}
+
+/* Resets Nativos e Padronizações */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--background);
+    color: var(--text-main);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+h1, h2, h3, h4, h5 { font-weight: 600; }
+a { text-decoration: none; color: inherit; }
+
+/* ============================================================
+   🟢 COMPONENTES GLOBAIS: NAVBAR (HEADER)
+   Criada com suporte flexbox moderno e blur translúcido
+   ============================================================ */
+.navbar {
+    background: rgba(15, 23, 42, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-brand h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+}
+
+.nav-brand h1 span {
+    color: var(--primary);
+}
+
+.nav-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.nav-user-info {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.user-name {
+    font-weight: 500;
+    color: var(--text-main);
+}
+
+/* ============================================================
+   🟢 COMPONENTES GLOBAIS: BADGES & CRACHÁS 
+   Sistema de reconhecimento visual de tipos e propriedades
+   ============================================================ */
+.user-role {
+    font-size: 0.7rem;
+    padding: 0.3rem 0.7rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Cores Injetadas dependendo da classe retornada pelo Backend */
+.badge-medico { 
+    background: rgba(16, 185, 129, 0.15); 
+    color: var(--role-medico); 
+    border: 1px solid rgba(16,185,129,0.3); 
+}
+.badge-engenheiro { 
+    background: rgba(139, 92, 246, 0.15); 
+    color: var(--role-engenheiro); 
+    border: 1px solid rgba(139,92,246,0.3); 
+}
+
+/* ============================================================
+   🟢 COMPONENTES GLOBAIS: BOTÕES
+   ============================================================ */
+.inline-form { display: inline; }
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text-muted);
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.875rem;
+    font-weight: 500;
+    transition: all 0.2s ease;
+}
+
+.btn-logout:hover {
+    background: rgba(239, 68, 68, 0.1);
+    color: var(--danger);
+    border-color: rgba(239, 68, 68, 0.3);
+}
+
+/* ============================================================
+   🟢 ARRANJOS DE CONTEÚDO PRINCIPAL (MAIN & CARDS)
+   ============================================================ */
+.main-container {
+    flex: 1;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 2.5rem 2rem;
+}
+
+.glass-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.glass-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+}
+
+/* ============================================================
+   🟢 FOOTER FIXO
+   ============================================================ */
+.footer {
+    background: var(--background);
+    border-top: 1px solid var(--border);
+    padding: 1.5rem 0;
+    margin-top: auto;
+}
+
+.footer-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
