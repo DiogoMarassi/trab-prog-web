@@ -174,3 +174,87 @@ a { text-decoration: none; color: inherit; }
     color: var(--text-muted);
     font-size: 0.875rem;
 }
+
+/* ============================================================
+   🟢 GRID DE DISPOSITIVOS E STATUS BADGES (ETAPA 7)
+   ============================================================ */
+.device-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+.device-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.5rem;
+}
+
+.device-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1rem;
+}
+
+.device-title {
+    font-size: 1.1rem;
+    color: var(--primary);
+    margin-bottom: 0.25rem;
+}
+
+.device-meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    font-family: monospace;
+}
+
+.device-info {
+    margin: 1rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
+
+.device-footer {
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    display: flex;
+    justify-content: space-between;
+}
+
+/* ============================================================
+   🟢 RECONHECIMENTO VISUAL DOS TIPOS DE ESTATO DO APARELHO
+   ============================================================ */
+.status-badge {
+    padding: 0.3rem 0.6rem;
+    border-radius: 6px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.status-ativo {
+    background: rgba(16, 185, 129, 0.15);
+    color: #10B981; /* Verde esmeralda sinaliza saude no dispositivo */
+    border: 1px solid rgba(16,185,129,0.3);
+}
+
+.status-manutencao {
+    background: rgba(245, 158, 11, 0.15);
+    color: #F59E0B; /* Alaranjado sinaliza equipe tecnica alocada */
+    border: 1px solid rgba(245,158,11,0.3);
+}
+
+.status-inativo {
+    background: rgba(239, 68, 68, 0.15);
+    color: #EF4444; /* Vermelho alerta estado critico/descarte */
+    border: 1px solid rgba(239,68,68,0.3);
+}
+
+/* Utility placeholder na listagem pros botões de Editar/Apagar */
+.device-actions {
+    display: flex;
+    gap: 0.5rem;
+}
