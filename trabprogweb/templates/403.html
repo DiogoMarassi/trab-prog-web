@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block title %}Acesso Restrito - Nível Administrativo{% endblock %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 500px; margin: 0 auto; margin-top: 4rem; text-align: center;">
+    
+    <!-- Ícone Warn Amarelo Laranja em CSS Puro com contorno -->
+    <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(245, 158, 11, 0.1); border: 1px solid rgba(245, 158, 11, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+        <span style="color: #F59E0B; font-size: 1.5rem; font-weight: bold;">⛔</span>
+    </div>
+
+    <!-- Título Impactante Baseado em Respostas HTTP (HTTP 403 Forbidden) -->
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main);">Acesso Nível Engenharia Restrito (Erro de Acesso 403)</h2>
+    
+    <!-- Logica Explicativa validando a Variável de Contexto Global em Tempo Real -->
+    <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6;">
+        Sua credencial de <strong>{{ user.get_role_display|upper }}</strong> possui níveis estritamente restritos voltados à visão em tempo real, relatórios rápidos e monitoramento.<br><br>
+        A manipulação complexa (Mudança de Parâmetros, Edição ou Descarte) da frota de dispositivos exige credenciais ativas da equipe de <strong>Engenharia Clínica</strong>.
+    </p>
+
+    <!-- Saída do Beco sem saída -->
+    <div style="display: flex; gap: 1rem;">
+        <a href="{% url 'home' %}" class="btn-primary" style="flex: 1;">Retornar Em Segurança ao Monitoramento</a>
+    </div>
+</div>
+{% endblock %}
