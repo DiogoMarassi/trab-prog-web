@@ -39,8 +39,17 @@
             </div>
         </div>
         
-        <div class="device-footer">
-            <span>Última Checagem: {{ device.updated_at|date:"d/m/y - H:i" }}</span>
+        <div class="device-footer" style="flex-direction: column; gap: 1rem;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); width: 100%;">
+                Última Checagem: {{ device.updated_at|date:"d/m/y - H:i" }}
+            </div>
+            <!-- Botões Exclusivos para Permissão Avançada -->
+            {% if user.role == "ENGENHEIRO" %}
+            <div class="device-actions" style="width: 100%;">
+                <a href="{% url 'device_edit' device.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; flex: 1;">Editar Dados</a>
+                <a href="{% url 'device_delete' device.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; color: var(--danger); border-color: rgba(239, 68, 68, 0.3); flex: 1;">Apagar do BD</a>
+            </div>
+            {% endif %}
         </div>
     </div>
     {% endfor %}

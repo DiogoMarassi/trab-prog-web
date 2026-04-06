@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse_lazy
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from .models import Device
 from .forms import DeviceForm
@@ -15,4 +15,15 @@ class DeviceCreateView(LoginRequiredMixin, CreateView):
     model = Device
     form_class = DeviceForm
     template_name = 'device_form.html'
+    success_url = reverse_lazy('home')
+
+class DeviceUpdateView(LoginRequiredMixin, UpdateView):
+    model = Device
+    form_class = DeviceForm
+    template_name = 'device_form.html'
+    success_url = reverse_lazy('home')
+
+class DeviceDeleteView(LoginRequiredMixin, DeleteView):
+    model = Device
+    template_name = 'device_confirm_delete.html'
     success_url = reverse_lazy('home')

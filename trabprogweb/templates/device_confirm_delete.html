@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Excluir Dispositivo{% endblock %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 500px; margin: 0 auto; margin-top: 4rem; text-align: center;">
+    
+    <!-- Ícone de Alerta em CSS Puro -->
+    <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+        <span style="color: var(--danger); font-size: 1.5rem; font-weight: bold;">!</span>
+    </div>
+
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem; color: var(--text-main);">Aviso Crítico de Supressão</h2>
+    
+    <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6;">
+        Tem certeza incondicional de que deseja descartar da frota hospitalar permanentemente o equipamento <br> 
+        <strong style="color: var(--danger); font-size: 1.1rem; display: block; margin-top: 10px;">{{ object.name }} <br><span style="font-family: monospace; font-size: 0.9rem;">(Serial: {{ object.serial_number }})</span></strong>
+    </p>
+
+    <!-- Post Form acionado pelo Django em Confirm_Delete nativo -->
+    <form method="post">
+        {% csrf_token %}
+        <div style="display: flex; gap: 1rem;">
+            <a href="{% url 'home' %}" class="btn-secondary" style="flex: 1;">Cancelar Ação</a>
+            <button type="submit" class="btn-primary" style="flex: 1; background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%); box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);">Executar Exclusão</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
