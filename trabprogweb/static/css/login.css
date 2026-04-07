@@ -198,3 +198,20 @@ body {
     color: var(--text-muted);
     font-size: 0.8rem;
 }
+
+/* ============================================================
+   📱 RESPONSIVIDADE MOBILE DA TELA DE LOGIN (ETAPA 11)
+   ============================================================ */
+@media (max-width: 600px) {
+    .login-glass-panel {
+        padding: 1.5rem;
+    }
+    
+    .login-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .login-wrapper {
+        padding: 1rem;
+    }
+}
