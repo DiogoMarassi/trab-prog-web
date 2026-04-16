@@ -1,28 +1,34 @@
-from django.contrib.auth.models import AnonymousUser
-from rest_framework_simplejwt.tokens import AccessToken
-from rest_framework_simplejwt.exceptions import TokenError
-from django.contrib.auth import get_user_model
-
-User = get_user_model()
-
+from rest_framework_simplejwt.authentication import JWTAuthentication
+from rest_framework_simplejwt.exceptions import InvalidToken, TokenError
 
 class JWTCookieMiddleware:
     """
-    Lê o access token JWT do cookie httpOnly e autentica o request.user.
-    Roda após AuthenticationMiddleware e sobrescreve o usuário se o token for válido.
+    Este script permite que o Django leia os tokens JWT que salvamos nos Cookies sem JavaScript, 
+    permitindo que decoradores como @login_required funcionem nativamente!
     """
-
     def __init__(self, get_response):
         self.get_response = get_response
 
     def __call__(self, request):
+        # Puxamos o cookie de nome 'access_token' setado na LoginView
         token = request.COOKIES.get('access_token')
+        
         if token:
             try:
-                validated_token = AccessToken(token)
-                user_id = validated_token['user_id']
-                request.user = User.objects.get(id=user_id)
-            except (TokenError, User.DoesNotExist):
-                request.user = AnonymousUser()
-
-        return self.get_response(request)
+                # Instanciamos a biblioteca de JWT e validamos
+                jwt_authenticator = JWTAuthentication()
+                validated_token = jwt_authenticator.get_validated_token(token)
+                
+                # Puxamos a identidade real do usuario a partir do token
+                user = jwt_authenticator.get_user(validated_token)
+                
+                # Sobrescrevemos o usuário falso "Anonimo" da requisição atrelando o User Mestre
+                request.user = user
+                
+            except (InvalidToken, TokenError):
+                # Se o Token expirou ou foi fraudado, engole o erro e o usuário segue Anônimo,
+                # e o decorador de LoginRequired do Django fará seu trabalho de chutar pra tela de logar.
+                pass
+                
+        response = self.get_response(request)
+        return response
