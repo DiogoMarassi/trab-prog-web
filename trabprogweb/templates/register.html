@@ -1,0 +1,95 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portal Hospitalar - Novo Usuário</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏥</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+</head>
+<body>
+    <div class="login-wrapper" style="max-width: 480px;">
+        <div class="login-decoration">
+            <div class="glass-orb orb-1"></div>
+            <div class="glass-orb orb-2"></div>
+        </div>
+
+        <div class="login-glass-panel">
+            <div class="login-header">
+                <h2>Health<span>Track</span></h2>
+                <p>Cadastro de Novo Usuário</p>
+            </div>
+
+            <form method="post" class="login-form">
+                {% csrf_token %}
+
+                {% if form.non_field_errors %}
+                <div class="alert-error">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="{{ form.username.id_for_label }}">Usuário</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                    <span class="field-error">{{ form.username.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.first_name.id_for_label }}">Nome</label>
+                    {{ form.first_name }}
+                    {% if form.first_name.errors %}
+                    <span class="field-error">{{ form.first_name.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.email.id_for_label }}">E-mail</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                    <span class="field-error">{{ form.email.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.role.id_for_label }}">Perfil de Acesso</label>
+                    {{ form.role }}
+                    {% if form.role.errors %}
+                    <span class="field-error">{{ form.role.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password1.id_for_label }}">Senha</label>
+                    {{ form.password1 }}
+                    {% if form.password1.errors %}
+                    <span class="field-error">{{ form.password1.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="form-group">
+                    <label for="{{ form.password2.id_for_label }}">Confirmar Senha</label>
+                    {{ form.password2 }}
+                    {% if form.password2.errors %}
+                    <span class="field-error">{{ form.password2.errors.0 }}</span>
+                    {% endif %}
+                </div>
+
+                <button type="submit" class="btn-primary">Criar Conta</button>
+
+                <p style="text-align: center; margin-top: 1.25rem; font-size: 0.875rem; color: var(--text-muted);">
+                    Já tem conta? <a href="{% url 'login' %}" style="color: var(--primary); text-decoration: none; font-weight: 500;">Entrar</a>
+                </p>
+            </form>
+
+            <div class="login-footer">
+                © {% now "Y" %} - Departamento de Engenharia Clínica & UTI
+            </div>
+        </div>
+    </div>
+</body>
+</html>

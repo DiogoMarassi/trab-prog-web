@@ -1,5 +1,13 @@
 from django import forms
-from .models import Device
+from django.contrib.auth.forms import UserCreationForm
+from .models import Device, CustomUser
+
+
+class RegisterForm(UserCreationForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'email', 'role', 'password1', 'password2']
+
 
 class DeviceForm(forms.ModelForm):
     class Meta:

@@ -7,7 +7,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Device
-from .forms import DeviceForm
+from .forms import DeviceForm, RegisterForm
 
 
 class EngenheiroRequiredMixin(UserPassesTestMixin):
@@ -51,6 +51,21 @@ class LoginView(View):
             httponly=True, samesite='Lax'
         )
         return response
+
+
+class RegisterView(View):
+    def get(self, request):
+        if request.user.is_authenticated:
+            return redirect('home')
+        form = RegisterForm()
+        return render(request, 'register.html', {'form': form})
+
+    def post(self, request):
+        form = RegisterForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('login')
+        return render(request, 'register.html', {'form': form})
 
 
 class LogoutView(View):
