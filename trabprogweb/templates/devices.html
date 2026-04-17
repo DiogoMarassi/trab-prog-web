@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}Dispositivos{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Painel de Monitoramento</h2>
+        <p style="color: var(--text-muted);">Acompanhamento em tempo real da frota de dispositivos médicos.</p>
+    </div>
+    {% if user.role == "ENGENHEIRO" or user.is_superuser %}
+    <a href="{% url 'device_create' %}" class="btn-primary" style="padding: 0.75rem 1.5rem; width: auto; margin-top: 0; box-shadow: none;">+ Novo Dispositivo</a>
+    {% endif %}
+</div>
+
+{% if devices %}
+<div class="device-grid">
+    {% for device in devices %}
+    <div class="glass-card device-card">
+        <div>
+            <div class="device-header">
+                <div>
+                    <h3 class="device-title">{{ device.name }}</h3>
+                    <code class="device-meta">SN: {{ device.serial_number }}</code>
+                </div>
+                <span class="status-badge status-{{ device.status|lower }}">{{ device.get_status_display }}</span>
+            </div>
+            <div class="device-info">
+                <p><strong>Tipo:</strong> {{ device.device_type }}</p>
+                <p><strong>Fabricante:</strong> {{ device.manufacturer }}</p>
+                <p><strong>Localização:</strong> <span style="color: var(--primary);">{{ device.location }}</span></p>
+            </div>
+        </div>
+        <div class="device-footer" style="flex-direction: column; gap: 1rem;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); width: 100%;">
+                Última Checagem: {{ device.updated_at|date:"d/m/y - H:i" }}
+            </div>
+            {% if user.role == "ENGENHEIRO" or user.is_superuser %}
+            <div class="device-actions" style="width: 100%;">
+                <a href="{% url 'device_edit' device.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; flex: 1;">Editar</a>
+                <a href="{% url 'device_delete' device.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; color: var(--danger); border-color: rgba(239, 68, 68, 0.3); flex: 1;">Excluir</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="glass-card" style="text-align: center; padding: 4rem 2rem;">
+    <h3 style="color: var(--text-muted);">A frota se encontra vazia.</h3>
+    <br>
+    <p>Nenhum dispositivo encontrado na base de dados.</p>
+</div>
+{% endif %}
+{% endblock %}

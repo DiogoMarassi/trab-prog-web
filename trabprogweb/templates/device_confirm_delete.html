@@ -21,7 +21,7 @@
     <form method="post">
         {% csrf_token %}
         <div style="display: flex; gap: 1rem;">
-            <a href="{% url 'home' %}" class="btn-secondary" style="flex: 1;">Cancelar Ação</a>
+            <a href="{% url 'devices' %}" class="btn-secondary" style="flex: 1;">Cancelar</a>
             <button type="submit" class="btn-primary" style="flex: 1; background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%); box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);">Executar Exclusão</button>
         </div>
     </form>

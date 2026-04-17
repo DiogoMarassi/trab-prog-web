@@ -30,15 +30,17 @@
             <!-- Sistema Condicional de Renderização - Mostra menu apenas para logados -->
             {% if user.is_authenticated %}
             <nav class="nav-menu">
-                
+
+                <a href="{% url 'devices' %}" class="nav-link {% if request.resolver_match.url_name == 'devices' %}active{% endif %}">Dispositivos</a>
+                {% if user.role == "ENGENHEIRO" or user.is_superuser %}
+                <a href="{% url 'users' %}" class="nav-link {% if request.resolver_match.url_name == 'users' %}active{% endif %}">Usuários</a>
+                {% endif %}
+
                 <div class="nav-user-info">
-                    <!-- A lógica do badge utiliza lower p/ acessar a string corretamente e gerar a cor certa via CSS -->
                     <span class="user-role badge-{{ user.role|lower }}">{{ user.get_role_display }}</span>
-                    <!-- Prioriza renderizar o First Name, se for branco vai p/ o usuário literal -->
                     <span class="user-name">{{ user.first_name|default:user.username|title }}</span>
                 </div>
-                
-                <!-- Ação Nativa de Logout segura via formulário como a versão mais recente do Django pede -->
+
                 <form action="{% url 'logout' %}" method="post" class="inline-form">
                     {% csrf_token %}
                     <button type="submit" class="btn-logout">Desconectar</button>

@@ -9,6 +9,18 @@ class RegisterForm(UserCreationForm):
         fields = ['username', 'first_name', 'email', 'role', 'password1', 'password2']
 
 
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'email', 'role']
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
+            'role': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
 class DeviceForm(forms.ModelForm):
     class Meta:
         model = Device

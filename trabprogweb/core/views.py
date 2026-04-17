@@ -6,8 +6,8 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Device
-from .forms import DeviceForm, RegisterForm
+from .models import Device, CustomUser
+from .forms import DeviceForm, RegisterForm, UserEditForm
 
 
 class EngenheiroRequiredMixin(UserPassesTestMixin):
@@ -78,25 +78,51 @@ class LogoutView(View):
 
 @login_required
 def home(request):
+    return render(request, 'home.html')
+
+
+@login_required
+def devices_panel(request):
     devices = Device.objects.all()
-    return render(request, 'home.html', {'devices': devices})
+    return render(request, 'devices.html', {'devices': devices})
+
+
+@login_required
+def users_panel(request):
+    if not (request.user.role == 'ENGENHEIRO' or request.user.is_superuser):
+        return render(request, '403.html', status=403)
+    users = CustomUser.objects.all().order_by('username')
+    return render(request, 'users.html', {'users': users})
+
+
+class UserUpdateView(LoginRequiredMixin, EngenheiroRequiredMixin, UpdateView):
+    model = CustomUser
+    form_class = UserEditForm
+    template_name = 'user_form.html'
+    success_url = reverse_lazy('users')
+
+
+class UserDeleteView(LoginRequiredMixin, EngenheiroRequiredMixin, DeleteView):
+    model = CustomUser
+    template_name = 'user_confirm_delete.html'
+    success_url = reverse_lazy('users')
 
 
 class DeviceCreateView(LoginRequiredMixin, EngenheiroRequiredMixin, CreateView):
     model = Device
     form_class = DeviceForm
     template_name = 'device_form.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('devices')
 
 
 class DeviceUpdateView(LoginRequiredMixin, EngenheiroRequiredMixin, UpdateView):
     model = Device
     form_class = DeviceForm
     template_name = 'device_form.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('devices')
 
 
 class DeviceDeleteView(LoginRequiredMixin, EngenheiroRequiredMixin, DeleteView):
     model = Device
     template_name = 'device_confirm_delete.html'
-    success_url = reverse_lazy('home')
+    success_url = reverse_lazy('devices')

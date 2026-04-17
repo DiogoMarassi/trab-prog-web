@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block title %}Usuários{% endblock %}
+
+{% block content %}
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+    <div>
+        <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Painel de Usuários</h2>
+        <p style="color: var(--text-muted);">Gerenciamento de contas do sistema.</p>
+    </div>
+    <a href="{% url 'register' %}" class="btn-primary" style="padding: 0.75rem 1.5rem; width: auto; margin-top: 0; box-shadow: none;">+ Novo Usuário</a>
+</div>
+
+<div class="glass-card" style="padding: 0; overflow: hidden;">
+    <table class="users-table">
+        <thead>
+            <tr>
+                <th>Usuário</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Perfil</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for u in users %}
+            <tr>
+                <td style="font-weight: 500;">{{ u.username }}</td>
+                <td style="color: var(--text-muted);">{{ u.first_name|default:"—" }}</td>
+                <td style="color: var(--text-muted);">{{ u.email|default:"—" }}</td>
+                <td>
+                    <span class="user-role badge-{{ u.role|lower }}">{{ u.get_role_display }}</span>
+                </td>
+                <td>
+                    <div style="display: flex; gap: 0.5rem;">
+                        <a href="{% url 'user_edit' u.pk %}" class="btn-secondary" style="padding: 0.3rem 0.75rem; font-size: 0.8rem;">Editar</a>
+                        {% if u.pk != user.pk %}
+                        <a href="{% url 'user_delete' u.pk %}" class="btn-secondary" style="padding: 0.3rem 0.75rem; font-size: 0.8rem; color: var(--danger); border-color: rgba(239, 68, 68, 0.3);">Excluir</a>
+                        {% else %}
+                        <span style="font-size: 0.75rem; color: var(--text-muted); align-self: center;">você</span>
+                        {% endif %}
+                    </div>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="5" style="text-align: center; color: var(--text-muted); padding: 2rem;">Nenhum usuário encontrado.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
