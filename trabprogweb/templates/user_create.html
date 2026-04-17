@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Novo Usuário{% endblock %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 600px; margin: 0 auto; margin-top: 2rem;">
+    <div style="margin-bottom: 2rem;">
+        <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Novo Usuário</h2>
+        <p style="color: var(--text-muted);">Crie uma conta com qualquer nível de acesso.</p>
+    </div>
+
+    <form method="post">
+        {% csrf_token %}
+
+        {% for field in form %}
+        <div class="form-group">
+            <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+            <span style="color: var(--danger); font-size: 0.8rem; display: block; margin-top: 0.5rem;">
+                {{ field.errors.0 }}
+            </span>
+            {% endif %}
+        </div>
+        {% endfor %}
+
+        <div style="display: flex; gap: 1rem; margin-top: 2rem;">
+            <a href="{% url 'users' %}" class="btn-secondary" style="flex: 1;">Cancelar</a>
+            <button type="submit" class="btn-primary" style="flex: 2;">Criar Usuário</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

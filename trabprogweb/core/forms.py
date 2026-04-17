@@ -4,6 +4,21 @@ from .models import Device, CustomUser
 
 
 class RegisterForm(UserCreationForm):
+    """Cadastro público — cria apenas contas de Médico."""
+    class Meta:
+        model = CustomUser
+        fields = ['username', 'first_name', 'email', 'password1', 'password2']
+
+    def save(self, commit=True):
+        user = super().save(commit=False)
+        user.role = CustomUser.Role.MEDICO
+        if commit:
+            user.save()
+        return user
+
+
+class AdminUserCreateForm(UserCreationForm):
+    """Cadastro pelo painel admin — permite escolher qualquer perfil."""
     class Meta:
         model = CustomUser
         fields = ['username', 'first_name', 'email', 'role', 'password1', 'password2']

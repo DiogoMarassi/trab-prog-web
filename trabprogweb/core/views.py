@@ -7,7 +7,7 @@ from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework_simplejwt.tokens import RefreshToken
 from .models import Device, CustomUser
-from .forms import DeviceForm, RegisterForm, UserEditForm
+from .forms import DeviceForm, RegisterForm, UserEditForm, AdminUserCreateForm
 
 
 class EngenheiroRequiredMixin(UserPassesTestMixin):
@@ -93,6 +93,19 @@ def users_panel(request):
         return render(request, '403.html', status=403)
     users = CustomUser.objects.all().order_by('username')
     return render(request, 'users.html', {'users': users})
+
+
+class UserCreateView(LoginRequiredMixin, EngenheiroRequiredMixin, View):
+    def get(self, request):
+        form = AdminUserCreateForm()
+        return render(request, 'user_create.html', {'form': form})
+
+    def post(self, request):
+        form = AdminUserCreateForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('users')
+        return render(request, 'user_create.html', {'form': form})
 
 
 class UserUpdateView(LoginRequiredMixin, EngenheiroRequiredMixin, UpdateView):

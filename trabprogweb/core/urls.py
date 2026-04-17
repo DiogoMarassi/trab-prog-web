@@ -8,6 +8,7 @@ urlpatterns = [
     path('dispositivos/editar/<int:pk>/', views.DeviceUpdateView.as_view(), name='device_edit'),
     path('dispositivos/excluir/<int:pk>/', views.DeviceDeleteView.as_view(), name='device_delete'),
     path('usuarios/', views.users_panel, name='users'),
+    path('usuarios/novo/', views.UserCreateView.as_view(), name='user_create'),
     path('usuarios/editar/<int:pk>/', views.UserUpdateView.as_view(), name='user_edit'),
     path('usuarios/excluir/<int:pk>/', views.UserDeleteView.as_view(), name='user_delete'),
     path('login/', views.LoginView.as_view(), name='login'),
