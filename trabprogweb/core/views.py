@@ -78,7 +78,7 @@ class LogoutView(View):
 
 @login_required
 def home(request):
-    return render(request, 'home.html')
+    return redirect('devices')
 
 
 @login_required
