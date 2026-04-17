@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Device, CustomUser
+from .models import Device, CustomUser, Medicamento
 
 
 class RegisterForm(UserCreationForm):
@@ -33,6 +33,21 @@ class UserEditForm(forms.ModelForm):
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'role': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+class MedicamentoForm(forms.ModelForm):
+    class Meta:
+        model = Medicamento
+        fields = ['name', 'principio_ativo', 'dosagem', 'quantidade', 'unidade', 'validade', 'location']
+        widgets = {
+            'name':            forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Dipirona'}),
+            'principio_ativo': forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Metamizol Sódico'}),
+            'dosagem':         forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: 500mg'}),
+            'quantidade':      forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Ex: 100'}),
+            'unidade':         forms.Select(attrs={'class': 'form-control'}),
+            'validade':        forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'location':        forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Farmácia - Prateleira A2'}),
         }
 
 

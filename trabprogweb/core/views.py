@@ -6,8 +6,8 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Device, CustomUser
-from .forms import DeviceForm, RegisterForm, UserEditForm, AdminUserCreateForm
+from .models import Device, CustomUser, Medicamento
+from .forms import DeviceForm, MedicamentoForm, RegisterForm, UserEditForm, AdminUserCreateForm
 
 
 class EngenheiroRequiredMixin(UserPassesTestMixin):
@@ -93,6 +93,26 @@ def users_panel(request):
         return render(request, '403.html', status=403)
     users = CustomUser.objects.all().order_by('username')
     return render(request, 'users.html', {'users': users})
+
+
+class MedicamentoCreateView(LoginRequiredMixin, EngenheiroRequiredMixin, CreateView):
+    model = Medicamento
+    form_class = MedicamentoForm
+    template_name = 'medicamento_form.html'
+    success_url = reverse_lazy('devices')
+
+
+class MedicamentoUpdateView(LoginRequiredMixin, EngenheiroRequiredMixin, UpdateView):
+    model = Medicamento
+    form_class = MedicamentoForm
+    template_name = 'medicamento_form.html'
+    success_url = reverse_lazy('devices')
+
+
+class MedicamentoDeleteView(LoginRequiredMixin, EngenheiroRequiredMixin, DeleteView):
+    model = Medicamento
+    template_name = 'medicamento_confirm_delete.html'
+    success_url = reverse_lazy('devices')
 
 
 class UserCreateView(LoginRequiredMixin, EngenheiroRequiredMixin, View):

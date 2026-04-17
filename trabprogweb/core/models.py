@@ -16,6 +16,33 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return f"{self.username} ({self.get_role_display()})"
 
+class Medicamento(models.Model):
+    class Unidade(models.TextChoices):
+        COMPRIMIDO = 'COMPRIMIDO', 'Comprimido(s)'
+        CAPSULA    = 'CAPSULA',    'Cápsula(s)'
+        FRASCO     = 'FRASCO',     'Frasco(s)'
+        AMPOLA     = 'AMPOLA',     'Ampola(s)'
+        ML         = 'ML',         'mL'
+        MG         = 'MG',         'mg'
+
+    name            = models.CharField(max_length=150, verbose_name="Nome")
+    principio_ativo = models.CharField(max_length=150, verbose_name="Princípio Ativo")
+    dosagem         = models.CharField(max_length=50,  verbose_name="Dosagem (ex: 500mg, 10ml)")
+    quantidade      = models.PositiveIntegerField(verbose_name="Quantidade em Estoque")
+    unidade         = models.CharField(max_length=20, choices=Unidade.choices, default=Unidade.COMPRIMIDO, verbose_name="Unidade")
+    validade        = models.DateField(verbose_name="Validade")
+    location        = models.CharField(max_length=200, verbose_name="Localização (Ala/Armário)")
+    updated_at      = models.DateTimeField(auto_now=True, verbose_name="Última Atualização")
+
+    class Meta:
+        verbose_name = "Medicamento"
+        verbose_name_plural = "Medicamentos"
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.name} {self.dosagem} — {self.quantidade} {self.get_unidade_display()}"
+
+
 class Device(models.Model):
     class Status(models.TextChoices):
         ATIVO = 'ATIVO', 'Ativo'
