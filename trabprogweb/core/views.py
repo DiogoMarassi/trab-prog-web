@@ -84,7 +84,8 @@ def home(request):
 @login_required
 def devices_panel(request):
     devices = Device.objects.all()
-    return render(request, 'devices.html', {'devices': devices})
+    medicamentos = Medicamento.objects.all()
+    return render(request, 'devices.html', {'devices': devices, 'medicamentos': medicamentos})
 
 
 @login_required

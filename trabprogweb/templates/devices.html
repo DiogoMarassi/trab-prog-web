@@ -3,18 +3,26 @@
 {% block title %}Dispositivos{% endblock %}
 
 {% block content %}
+
+<!-- Cabeçalho -->
 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
     <div>
         <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Painel de Monitoramento</h2>
-        <p style="color: var(--text-muted);">Acompanhamento em tempo real da frota de dispositivos médicos.</p>
+        <p style="color: var(--text-muted);">Equipamentos e medicamentos do ambiente hospitalar.</p>
     </div>
     {% if user.role == "ENGENHEIRO" or user.is_superuser %}
-    <a href="{% url 'device_create' %}" class="btn-primary" style="padding: 0.75rem 1.5rem; width: auto; margin-top: 0; box-shadow: none;">+ Novo Dispositivo</a>
+    <div style="display: flex; gap: 0.75rem;">
+        <a href="{% url 'device_create' %}" class="btn-secondary" style="padding: 0.75rem 1.25rem; width: auto; margin-top: 0;">+ Equipamento</a>
+        <a href="{% url 'medicamento_create' %}" class="btn-primary" style="padding: 0.75rem 1.25rem; width: auto; margin-top: 0; box-shadow: none;">+ Medicamento</a>
+    </div>
     {% endif %}
 </div>
 
+<!-- ====== SEÇÃO: EQUIPAMENTOS ====== -->
+<h3 style="font-size: 1rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Equipamentos</h3>
+
 {% if devices %}
-<div class="device-grid">
+<div class="device-grid" style="margin-bottom: 3rem;">
     {% for device in devices %}
     <div class="glass-card device-card">
         <div>
@@ -46,10 +54,52 @@
     {% endfor %}
 </div>
 {% else %}
-<div class="glass-card" style="text-align: center; padding: 4rem 2rem;">
-    <h3 style="color: var(--text-muted);">A frota se encontra vazia.</h3>
-    <br>
-    <p>Nenhum dispositivo encontrado na base de dados.</p>
+<div class="glass-card" style="text-align: center; padding: 3rem 2rem; margin-bottom: 3rem;">
+    <p style="color: var(--text-muted);">Nenhum equipamento cadastrado.</p>
 </div>
 {% endif %}
+
+<!-- ====== SEÇÃO: MEDICAMENTOS ====== -->
+<h3 style="font-size: 1rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Medicamentos</h3>
+
+{% if medicamentos %}
+<div class="device-grid">
+    {% for med in medicamentos %}
+    <div class="glass-card device-card">
+        <div>
+            <div class="device-header">
+                <div>
+                    <h3 class="device-title">{{ med.name }}</h3>
+                    <code class="device-meta">{{ med.principio_ativo }}</code>
+                </div>
+                <span class="status-badge" style="background: rgba(139, 92, 246, 0.15); color: #A78BFA; border: 1px solid rgba(139, 92, 246, 0.3);">
+                    {{ med.dosagem }}
+                </span>
+            </div>
+            <div class="device-info">
+                <p><strong>Estoque:</strong> {{ med.quantidade }} {{ med.get_unidade_display }}</p>
+                <p><strong>Validade:</strong> {{ med.validade|date:"d/m/Y" }}</p>
+                <p><strong>Localização:</strong> <span style="color: var(--primary);">{{ med.location }}</span></p>
+            </div>
+        </div>
+        <div class="device-footer" style="flex-direction: column; gap: 1rem;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); width: 100%;">
+                Última Atualização: {{ med.updated_at|date:"d/m/y - H:i" }}
+            </div>
+            {% if user.role == "ENGENHEIRO" or user.is_superuser %}
+            <div class="device-actions" style="width: 100%;">
+                <a href="{% url 'medicamento_edit' med.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; flex: 1;">Editar</a>
+                <a href="{% url 'medicamento_delete' med.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; color: var(--danger); border-color: rgba(239, 68, 68, 0.3); flex: 1;">Excluir</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="glass-card" style="text-align: center; padding: 3rem 2rem;">
+    <p style="color: var(--text-muted);">Nenhum medicamento cadastrado.</p>
+</div>
+{% endif %}
+
 {% endblock %}

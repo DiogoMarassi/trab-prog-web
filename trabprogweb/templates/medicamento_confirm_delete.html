@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}Excluir Medicamento{% endblock %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 500px; margin: 0 auto; margin-top: 4rem; text-align: center;">
+
+    <div style="width: 60px; height: 60px; border-radius: 50%; background: rgba(239, 68, 68, 0.1); border: 1px solid rgba(239, 68, 68, 0.3); display: flex; align-items: center; justify-content: center; margin: 0 auto 1.5rem auto;">
+        <span style="color: var(--danger); font-size: 1.5rem; font-weight: bold;">!</span>
+    </div>
+
+    <h2 style="font-size: 1.5rem; margin-bottom: 1rem;">Excluir Medicamento</h2>
+
+    <p style="color: var(--text-muted); margin-bottom: 2rem; line-height: 1.6;">
+        Tem certeza que deseja excluir permanentemente o medicamento
+        <strong style="color: var(--danger); display: block; margin-top: 0.5rem; font-size: 1.1rem;">
+            {{ object.name }} — {{ object.dosagem }}
+        </strong>
+    </p>
+
+    <form method="post">
+        {% csrf_token %}
+        <div style="display: flex; gap: 1rem;">
+            <a href="{% url 'devices' %}" class="btn-secondary" style="flex: 1;">Cancelar</a>
+            <button type="submit" class="btn-primary" style="flex: 1; background: linear-gradient(135deg, #EF4444 0%, #B91C1C 100%); box-shadow: 0 4px 6px -1px rgba(239, 68, 68, 0.3);">Confirmar Exclusão</button>
+        </div>
+    </form>
+</div>
+{% endblock %}
