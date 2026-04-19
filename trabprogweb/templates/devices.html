@@ -5,10 +5,10 @@
 {% block content %}
 
 <!-- Cabeçalho -->
-<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
     <div>
         <h2 style="font-size: 1.8rem; margin-bottom: 0.5rem;">Painel de Monitoramento</h2>
-        <p style="color: var(--text-muted);">Equipamentos e medicamentos do ambiente hospitalar.</p>
+        <p style="color: var(--text-muted);">Equipamentos, medicamentos e suprimentos do ambiente hospitalar.</p>
     </div>
     {% if user.role == "ENGENHEIRO" or user.is_superuser %}
     <div style="display: flex; gap: 0.75rem;">
@@ -19,7 +19,16 @@
     {% endif %}
 </div>
 
+<!-- Filtros -->
+<div style="display: flex; gap: 0.5rem; margin-bottom: 2rem;">
+    <button class="filter-btn active" data-section="todos">Todos</button>
+    <button class="filter-btn" data-section="equipamentos">Equipamentos</button>
+    <button class="filter-btn" data-section="medicamentos">Medicamentos</button>
+    <button class="filter-btn" data-section="suprimentos">Suprimentos</button>
+</div>
+
 <!-- ====== SEÇÃO: EQUIPAMENTOS ====== -->
+<div id="secao-equipamentos">
 <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Equipamentos</h3>
 
 {% if devices %}
@@ -60,7 +69,10 @@
 </div>
 {% endif %}
 
+</div>
+
 <!-- ====== SEÇÃO: MEDICAMENTOS ====== -->
+<div id="secao-medicamentos">
 <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem;">Medicamentos</h3>
 
 {% if medicamentos %}
@@ -103,7 +115,10 @@
 </div>
 {% endif %}
 
+</div>
+
 <!-- ====== SEÇÃO: SUPRIMENTOS ====== -->
+<div id="secao-suprimentos">
 <h3 style="font-size: 1rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; margin-top: 3rem;">Suprimentos</h3>
 
 {% if suprimentos %}
@@ -146,5 +161,27 @@
     <p style="color: var(--text-muted);">Nenhum suprimento cadastrado.</p>
 </div>
 {% endif %}
+</div>
+
+<script>
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const secoes = {
+        equipamentos: document.getElementById('secao-equipamentos'),
+        medicamentos: document.getElementById('secao-medicamentos'),
+        suprimentos:  document.getElementById('secao-suprimentos'),
+    };
+
+    filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterBtns.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const alvo = btn.dataset.section;
+            Object.entries(secoes).forEach(([nome, el]) => {
+                el.style.display = (alvo === 'todos' || alvo === nome) ? 'block' : 'none';
+            });
+        });
+    });
+</script>
 
 {% endblock %}
