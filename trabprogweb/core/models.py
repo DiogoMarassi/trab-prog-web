@@ -43,6 +43,37 @@ class Medicamento(models.Model):
         return f"{self.name} {self.dosagem} — {self.quantidade} {self.get_unidade_display()}"
 
 
+class Suprimento(models.Model):
+    class Categoria(models.TextChoices):
+        UTENSILIO   = 'UTENSILIO',   'Utensílio'
+        EPI         = 'EPI',         'EPI'
+        DESCARTAVEL = 'DESCARTAVEL', 'Descartável'
+        OUTRO       = 'OUTRO',       'Outro'
+
+    class Unidade(models.TextChoices):
+        UNIDADE = 'UNIDADE', 'Unidade(s)'
+        CAIXA   = 'CAIXA',   'Caixa(s)'
+        PACOTE  = 'PACOTE',  'Pacote(s)'
+        PAR     = 'PAR',     'Par(es)'
+        ROLO    = 'ROLO',    'Rolo(s)'
+
+    name       = models.CharField(max_length=150, verbose_name="Nome")
+    categoria  = models.CharField(max_length=20, choices=Categoria.choices, default=Categoria.UTENSILIO, verbose_name="Categoria")
+    quantidade = models.PositiveIntegerField(verbose_name="Quantidade em Estoque")
+    unidade    = models.CharField(max_length=20, choices=Unidade.choices, default=Unidade.UNIDADE, verbose_name="Unidade")
+    validade   = models.DateField(null=True, blank=True, verbose_name="Validade (opcional)")
+    location   = models.CharField(max_length=200, verbose_name="Localização (Ala/Armário)")
+    updated_at = models.DateTimeField(auto_now=True, verbose_name="Última Atualização")
+
+    class Meta:
+        verbose_name = "Suprimento"
+        verbose_name_plural = "Suprimentos"
+        ordering = ['name']
+
+    def __str__(self):
+        return f"{self.name} — {self.quantidade} {self.get_unidade_display()}"
+
+
 class Device(models.Model):
     class Status(models.TextChoices):
         ATIVO = 'ATIVO', 'Ativo'

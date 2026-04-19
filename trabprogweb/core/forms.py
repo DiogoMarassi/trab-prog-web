@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
-from .models import Device, CustomUser, Medicamento
+from .models import Device, CustomUser, Medicamento, Suprimento
 
 
 class RegisterForm(UserCreationForm):
@@ -48,6 +48,20 @@ class MedicamentoForm(forms.ModelForm):
             'unidade':         forms.Select(attrs={'class': 'form-control'}),
             'validade':        forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
             'location':        forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Farmácia - Prateleira A2'}),
+        }
+
+
+class SuprimentoForm(forms.ModelForm):
+    class Meta:
+        model = Suprimento
+        fields = ['name', 'categoria', 'quantidade', 'unidade', 'validade', 'location']
+        widgets = {
+            'name':       forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Luva Cirúrgica'}),
+            'categoria':  forms.Select(attrs={'class': 'form-control'}),
+            'quantidade': forms.NumberInput(attrs={'class': 'form-control', 'placeholder': 'Ex: 200'}),
+            'unidade':    forms.Select(attrs={'class': 'form-control'}),
+            'validade':   forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'location':   forms.TextInput(attrs={'class': 'form-control', 'placeholder': 'Ex: Almoxarifado - Prateleira B1'}),
         }
 
 

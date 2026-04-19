@@ -6,8 +6,8 @@ from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from rest_framework_simplejwt.tokens import RefreshToken
-from .models import Device, CustomUser, Medicamento
-from .forms import DeviceForm, MedicamentoForm, RegisterForm, UserEditForm, AdminUserCreateForm
+from .models import Device, CustomUser, Medicamento, Suprimento
+from .forms import DeviceForm, MedicamentoForm, SuprimentoForm, RegisterForm, UserEditForm, AdminUserCreateForm
 
 
 class EngenheiroRequiredMixin(UserPassesTestMixin):
@@ -113,6 +113,26 @@ class MedicamentoUpdateView(LoginRequiredMixin, EngenheiroRequiredMixin, UpdateV
 class MedicamentoDeleteView(LoginRequiredMixin, EngenheiroRequiredMixin, DeleteView):
     model = Medicamento
     template_name = 'medicamento_confirm_delete.html'
+    success_url = reverse_lazy('devices')
+
+
+class SuprimentoCreateView(LoginRequiredMixin, EngenheiroRequiredMixin, CreateView):
+    model = Suprimento
+    form_class = SuprimentoForm
+    template_name = 'suprimento_form.html'
+    success_url = reverse_lazy('devices')
+
+
+class SuprimentoUpdateView(LoginRequiredMixin, EngenheiroRequiredMixin, UpdateView):
+    model = Suprimento
+    form_class = SuprimentoForm
+    template_name = 'suprimento_form.html'
+    success_url = reverse_lazy('devices')
+
+
+class SuprimentoDeleteView(LoginRequiredMixin, EngenheiroRequiredMixin, DeleteView):
+    model = Suprimento
+    template_name = 'suprimento_confirm_delete.html'
     success_url = reverse_lazy('devices')
 
 
