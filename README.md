@@ -37,6 +37,7 @@ Usamos JWT para autenticação e as páginas são feitas interamente em html e c
 
 ## Como Rodar o Projeto localmente
 
+* Primeiro crie o arquivo .env e adicione nele ALLOWED_HOSTS=localhost
 ```bash
 venv\Scripts\activate
 
@@ -49,7 +50,14 @@ python manage.py runserver
 
 Acesse em: `http://localhost:8000`
 
-### Contas de exemplo (após rodar o seed)
+## Como acessar na nuvem
+
+* Basta entrar no link abaixo:
+https://diogomarassi.pythonanywhere.com/
+
+* Depois disso, você pode seguir as instruções para o usuário  abaixo
+
+### Contas de exemplo
 
 | Usuário | Senha | Perfil |
 |---|---|---|

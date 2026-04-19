@@ -1,0 +1,21 @@
+# Ambiente virtual
+trabprogweb/venv/
+
+# Cache Python
+**/__pycache__/
+**/*.pyc
+**/*.pyo
+
+# Banco de dados local (não sobe para o container)
+trabprogweb/db.sqlite3
+
+# Git
+.git/
+.gitignore
+
+# Arquivos estáticos coletados (gerados no build)
+trabprogweb/staticfiles/
+
+# Variáveis de ambiente
+.env
+*.env
