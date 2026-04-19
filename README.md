@@ -7,7 +7,7 @@ Sistema web desenvolvido como trabalho prático da disciplina de Programação W
 ## Alunos
 
 * Diogo Marassi: 2220354
-* Lucas Lopes: 222
+* Lucas Lopes: 2220647
 
 ---
 
