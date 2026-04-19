@@ -85,7 +85,8 @@ def home(request):
 def devices_panel(request):
     devices = Device.objects.all()
     medicamentos = Medicamento.objects.all()
-    return render(request, 'devices.html', {'devices': devices, 'medicamentos': medicamentos})
+    suprimentos = Suprimento.objects.all()
+    return render(request, 'devices.html', {'devices': devices, 'medicamentos': medicamentos, 'suprimentos': suprimentos})
 
 
 @login_required

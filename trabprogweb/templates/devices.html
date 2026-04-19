@@ -13,7 +13,8 @@
     {% if user.role == "ENGENHEIRO" or user.is_superuser %}
     <div style="display: flex; gap: 0.75rem;">
         <a href="{% url 'device_create' %}" class="btn-secondary" style="padding: 0.75rem 1.25rem; width: auto; margin-top: 0;">+ Equipamento</a>
-        <a href="{% url 'medicamento_create' %}" class="btn-primary" style="padding: 0.75rem 1.25rem; width: auto; margin-top: 0; box-shadow: none;">+ Medicamento</a>
+        <a href="{% url 'medicamento_create' %}" class="btn-secondary" style="padding: 0.75rem 1.25rem; width: auto; margin-top: 0;">+ Medicamento</a>
+        <a href="{% url 'suprimento_create' %}" class="btn-primary" style="padding: 0.75rem 1.25rem; width: auto; margin-top: 0; box-shadow: none;">+ Suprimento</a>
     </div>
     {% endif %}
 </div>
@@ -99,6 +100,50 @@
 {% else %}
 <div class="glass-card" style="text-align: center; padding: 3rem 2rem;">
     <p style="color: var(--text-muted);">Nenhum medicamento cadastrado.</p>
+</div>
+{% endif %}
+
+<!-- ====== SEÇÃO: SUPRIMENTOS ====== -->
+<h3 style="font-size: 1rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; margin-top: 3rem;">Suprimentos</h3>
+
+{% if suprimentos %}
+<div class="device-grid">
+    {% for sup in suprimentos %}
+    <div class="glass-card device-card">
+        <div>
+            <div class="device-header">
+                <div>
+                    <h3 class="device-title">{{ sup.name }}</h3>
+                    <code class="device-meta">{{ sup.get_categoria_display }}</code>
+                </div>
+                <span class="status-badge" style="background: rgba(16, 185, 129, 0.15); color: #10B981; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    {{ sup.quantidade }} {{ sup.get_unidade_display }}
+                </span>
+            </div>
+            <div class="device-info">
+                <p><strong>Validade:</strong>
+                    {% if sup.validade %}{{ sup.validade|date:"d/m/Y" }}{% else %}<span style="color: var(--text-muted);">—</span>{% endif %}
+                </p>
+                <p><strong>Localização:</strong> <span style="color: var(--primary);">{{ sup.location }}</span></p>
+            </div>
+        </div>
+        <div class="device-footer" style="flex-direction: column; gap: 1rem;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); width: 100%;">
+                Última Atualização: {{ sup.updated_at|date:"d/m/y - H:i" }}
+            </div>
+            {% if user.role == "ENGENHEIRO" or user.is_superuser %}
+            <div class="device-actions" style="width: 100%;">
+                <a href="{% url 'suprimento_edit' sup.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; flex: 1;">Editar</a>
+                <a href="{% url 'suprimento_delete' sup.id %}" class="btn-secondary" style="padding: 0.4rem 0.8rem; font-size: 0.8rem; color: var(--danger); border-color: rgba(239, 68, 68, 0.3); flex: 1;">Excluir</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="glass-card" style="text-align: center; padding: 3rem 2rem;">
+    <p style="color: var(--text-muted);">Nenhum suprimento cadastrado.</p>
 </div>
 {% endif %}
 
