@@ -11,16 +11,6 @@ Sistema web desenvolvido como trabalho prático da disciplina de Programação W
 
 ---
 
-## Organizacao do Readme
-
-- [Escopo do Projeto](#escopo-do-projeto)
-- [Tecnologias Utilizadas](#tecnologias-utilizadas)
-- [Como Rodar o Projeto](#como-rodar-o-projeto)
-- [Manual do Usuário](#manual-do-usuário)
-- [O que Funcionou e o que Não Funcionou](#o-que-funcionou-e-o-que-não-funcionou)
-
----
-
 ## Escopo do Projeto
 
 O HealthTrack é um portal hospitalar voltado ao controle e monitoramento de três tipos de itens do ambiente clínico:
