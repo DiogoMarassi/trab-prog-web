@@ -147,6 +147,7 @@ Clique no botão 'Desconectar' no canto superior direito. Isso apaga os cookies 
 - **Cadastro** - Testado e funcionando corretamente
 - **Filtro da pagina inicial** - É possível filtrar cada tipo de 'entidade' na página inicial
 - **Separação do cadastro público e do cadastro administrativo** — o formulário público (`/registrar/`) cria apenas contas de Médico. O formulário do painel admin permite criar qualquer perfil.
+- **Controle de usuários** - Tem uma página funcional apenas para admins na qual é possivel administrar e visualizar todos os usuários da plataforma. Nele, tem um CRUD completo e funcional. Podemos editar, adicionar, remover e ver usuários pelo admin.
 
 ### O que não funcionou 
 
